@@ -1,4 +1,14 @@
-function Konga() {
+import { useState, useEffect } from 'react'
+
+function Konga(props) {
+    const [data, setData] = useState([])
+    let [page, setPage] = useState(1)
+    useEffect(() => {
+        // let ali = props.classifyData(sampleData)
+        // setData(ali)
+      
+    }, [])
+
 
     return (
       <div>
@@ -20,137 +30,27 @@ function Konga() {
                 </div>
             </div>
             <div className="results row">
-            <div className="productCard col-sm-12">
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-           
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-           
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
+            {
+                data.map(el => {
+                    return <div className="productCard py-3 col-sm-12" >
+                    <img className="card-img-top" src={el.imgLink} alt="Card image cap"/>
+                    <div className="card-body">
+                        <h5 className="card-title">{el.name}</h5>
+                        <p className="card-text">{el.price}</p>
+                        <a href={`https://www.konga.com${el.link}`} target="_blank" className="btn btn-primary col-sm-12">View Product</a>
+                    </div>
+                    </div>
+                })
+            }
            
             </div>
             <div className='sectionNavigation row mt-3 justify-content-center'>
-                <button className='btn btn-outline-warning row col-md-2 p-0 py-2'>
+                <button disabled={page == 1?true:false} className='btn btn-outline-primary row col-md-2 p-0 py-2'>
                     <span className="col" ><img src='./right-arrow.png' style={{transform:'rotate(180deg)', maxWidth:'20px'}}/></span>
                     <span className='col'>Previous Page</span>
                 </button>
-                <div className='col-sm-1'></div>
-                <button className='btn btn-outline-warning row col-md-2 p-0 ml-2 py-2'>
+                <button className='col-sm-1 btn btn-outline-primary mx-4 disabled'>{page}</button>
+                <button className='btn btn-outline-primary row col-md-2 p-0 ml-2 py-2'>
                     <span className="col" ><img src='./right-arrow.png' style={{maxWidth:'20px'}}/></span>
                     <span className='col'>Next Page</span>
                 </button>

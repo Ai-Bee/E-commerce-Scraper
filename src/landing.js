@@ -3,19 +3,21 @@ import Nav from './componentParts/topNav'
 import Loader from './componentParts/loader'
 import {useState} from 'react'
 import { useHistory } from 'react-router-dom'
+import axios from 'axios'
 
 function Landing() {
   const history = useHistory()
   let [userMood, setUserMood] = useState(true)
   let [searchQuery, setSearchQuery] = useState('')
   let [loading, setLoadingState] = useState(false)
+  let [jiji, setJiji] = useState([])
+  let [amazon, setAmazon] = useState([])
+  let [jumia, setJumia] = useState([])
+  let [aliexpress, setAliexpress] = useState([])
+  let [konga, setKonga] = useState([])
 
-  let getUserMood = (mood) => {
-    setUserMood(userMood = mood)
-  }
-  let resetValue = () => {
-    setSearchQuery('') 
-  }
+  const [rootUrl] = useState('https://fathomless-plains-52664.herokuapp.com/')
+
 
   const formatSearchText = (text) => {
     /**
@@ -30,14 +32,60 @@ function Landing() {
       return text
     }
   }
+  let getUserMood = (mood) => {
+    setUserMood(userMood = mood)
+  }
+  let resetValue = () => {
+    setSearchQuery('') 
+  }
+  let jijiGetter = (query) => {
+    return axios.get(`${rootUrl}jiji/${query}`)
+  }
+  let amazonGetter = (query) => {
+    return axios.get(`${rootUrl}amazon/${query}`)
+  }
+  let jumiaGetter = (query) => {
+    return axios.get(`${rootUrl}jumia/${query}`)
+  }
+  let kongaGetter = (query) => {
+    return axios.get(`${rootUrl}konga/${query}/1`)
+  }
+  let aliexpressGetter = (query) => {
+    return axios.get(`${rootUrl}aliexpress/${query}/1`)
+  }
+  let fetchData = (query) => {
+    setLoadingState(true)
+    axios.all([
+      jijiGetter(query),
+      amazonGetter(query),
+      jumiaGetter(query), 
+      kongaGetter(query), 
+      aliexpressGetter(query)
+    ]).then(res => {
+      setJiji(res[0])
+      setAmazon(res[1])
+      setJumia(res[2])
+      setKonga(res[3])
+      setAliexpress(res[4])
+      localStorage.setItem('amazon', JSON.stringify(res[1])) 
+      localStorage.setItem('jumia', JSON.stringify(res[2])) 
+      localStorage.setItem('konga', JSON.stringify(res[3]))  
+      localStorage.setItem('jiji', JSON.stringify(res[0]))
+      localStorage.setItem('aliexpress', JSON.stringify(res[4]))
+    }).catch(err => {
+      console.log(err)
+    }).finally(() => {
+      setLoadingState(false)
+    })
+  }
+ 
   let handleSubmit = (e) => {
     e.preventDefault()
     if(searchQuery !== ''){
-      let out = formatSearchText(searchQuery)  
-      setLoadingState(true)
-      setTimeout(() => {
-        history.push('/products')
-      }, 2000);
+      let editedQuery = formatSearchText(searchQuery)  
+      fetchData(editedQuery)
+      //   history.push('/products')
+
        // make API call
        // when it returns, 
        // navigate to the new route
@@ -45,6 +93,7 @@ function Landing() {
     } 
     resetValue()
   }
+ 
     return (
       <div className={`container-local  ${userMood?'light':'dark'}`}>
          <Nav getUserMood={getUserMood} />

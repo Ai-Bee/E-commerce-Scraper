@@ -1,4 +1,16 @@
-function Jumia() {
+import { useEffect, useState } from 'react'
+
+function Jumia(props) {
+    let [page, setPage] = useState(1)
+    const [data, setData] = useState([])
+    useEffect(() => {
+        // let format = props.classifyData(props.jumiaData)
+       // setData(format)
+    }, [props.jumiaData])
+
+    // let formatRating = (val) => {
+
+    // }
 
     return (
       <div>
@@ -8,7 +20,7 @@ function Jumia() {
                 <div className="controls row mx-auto my-2 justify-content-between">
                     <div className='col-sm-5 row'>
                         <input type="text" className='col form-control' placeholder="Search In Jumia..." />
-                        <button type="submit" className='col-sm-3 btn btn-outline-danger'>Search</button>
+                        <button type="submit" className='col-sm-3 btn btn-outline-secondary'>Search</button>
                     </div>
                     <div className="col-sm-4 row justify-content-end">
                         <select className="col-sm-7">
@@ -21,137 +33,31 @@ function Jumia() {
                 </div>
             </div>
             <div className="results row">
-            <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-           
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-           
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
-                <div className="productCard col-sm-12" >
-                <img className="card-img-top" src="./logo192.png" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Product Name</h5>
-                    <p className="card-text">#2,300</p>
-                    <a href="#" className="btn btn-primary col-sm-12">View Product</a>
-                </div>
-                </div>
+                
+            {
+                data.map(el => {
+                    return <div className="productCard py-3 col-sm-12" >
+                    <img className="card-img-top" src={el.imgLink} alt="Card image cap"/>
+                    <div className="card-body">
+                        <h5 className="card-title">{el.name}</h5>
+                        <p className="card-text">{el.price}</p>
+                        <p className="card-text rating">Rating: 
+                        <span>{el.rating}</span></p>
+                        <a href={`https://www.jumia.com.ng${el.link}`} target="_blank" className="btn btn-primary col-sm-12">View Product</a>
+                    </div>
+                    </div>
+                })
+            }
+            
            
             </div>
             <div className='sectionNavigation row mt-3 justify-content-center'>
-                <button className='btn btn-outline-warning row col-md-2 p-0 py-2'>
+                <button className='btn btn-outline-primary row col-md-2 p-0 py-2' disabled={page == 1?true:false}>
                     <span className="col" ><img src='./right-arrow.png' style={{transform:'rotate(180deg)', maxWidth:'20px'}}/></span>
                     <span className='col'>Previous Page</span>
                 </button>
-                <div className='col-sm-1'></div>
-                <button className='btn btn-outline-warning row col-md-2 p-0 ml-2 py-2'>
+                <button className='col-sm-1 btn btn-outline-primary mx-4 disabled'>{page}</button>
+                <button className='btn btn-outline-primary row col-md-2 p-0 ml-2 py-2'>
                     <span className="col" ><img src='./right-arrow.png' style={{maxWidth:'20px'}}/></span>
                     <span className='col'>Next Page</span>
                 </button>

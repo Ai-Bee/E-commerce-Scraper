@@ -14,11 +14,6 @@
             filter: invert(100%);
         }
     }
-    nav.rightImgs{
-        >img:last-of-type{
-            
-        }
-    }
 }
 .App-header {
     padding-left: 5%;
@@ -43,7 +38,9 @@
    }
    ul li{
        list-style-type: none;
-       
+       img{
+        cursor: pointer;
+       }
    }
    li.logos{
        img{

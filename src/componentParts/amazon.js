@@ -1,22 +1,60 @@
 import { useState, useEffect } from 'react'
-import sampleData from './sample'
+import Loader from './loader'
+import axios from 'axios'
+
 function Amazon(props) {
     const [data, setData] = useState([])
     let [page, setPage] = useState(1)
+    let [rando, setRando] = useState(0)
+    let [loading, setLoadingState] = useState(false)
+    let [searchQuery, setSearchQuery] = useState('')
     useEffect(() => {
-        let ali = props.classifyData(sampleData)
-        setData(ali)
+        let raw = JSON.parse(localStorage.getItem('amazon'))
+        let all = props.classifyData(raw.data)
+        setData(all)
     }, [])
+    useEffect(() => {
+        let rawData = JSON.parse(localStorage.getItem('amazon'))
+        let all = props.classifyData(rawData.data)
+        setData(all)
+    }, [rando])
+    let handleSubmit = (e) => {
+        e.preventDefault()
+        if(searchQuery !== ''){
+            let editedQuery = props.formatSearchText(searchQuery)  
+            fetchData(editedQuery)
+             // then setLoadingState(false)
+          } 
+          setSearchQuery('') 
+    }
+
+    let fetchData = (query) => {
+        // setLoadingState(true)
+        localStorage.removeItem('amazon')
+        axios.get(`https://fathomless-plains-52664.herokuapp.com/amazon/${query}/${page}`).then(res => {
+        
+            localStorage.setItem('amazon', JSON.stringify(res))
+        }).catch(error => {
+            console.error(error)
+        }).finally(() => {
+            console.log('done')
+            setLoadingState(true)
+            setRando(state => state + 1)
+            setLoadingState(false)
+        })
+    }
 
     return (
       <div>
+          {/* <Loader/> */}
            <section className="resultsSection container mt-4" id="Amazon">
             <div className='top'>
                 <img src="./Amazon-logo-full.png" className='darken' alt='Amazon Logo' style={{maxWidth:'400px'}} />
                 <div className="controls row mx-auto my-2 justify-content-between">
                     <div className='col-sm-5 row'>
-                        <input type="text" className='col form-control' placeholder="Search In Amazon..." />
-                        <button type="submit" className='col-sm-3 btn btn-outline-warning'>Search</button>
+                        <input type="text" value={searchQuery}
+           onChange={e => setSearchQuery(e.target.value)} className='col form-control' placeholder="Search In Amazon..." />
+                        <button type="submit" className='col-sm-3 btn btn-outline-warning' onClick={handleSubmit}>Search</button>
                     </div>
                 </div>
             </div>

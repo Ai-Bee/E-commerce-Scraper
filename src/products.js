@@ -30,6 +30,21 @@ function ProductsPage() {
         return `₦${Math.round(digits*413)} (${seperate[1]})`
       }
     }
+
+    const formatSearchText = (text) => {
+      /**
+       * This method converts multiword search
+       * queries into the right format required
+       * by the urls, and still handles it otherwise 
+       */
+      let splitText = text.split(' ')
+      if(splitText.length > 1){
+        return splitText.join('+')
+      } else {
+        return text
+      }
+    }
+
     let classifyData = (input, store) => {
       let final = []
       console.log(input)
@@ -57,7 +72,7 @@ function ProductsPage() {
             temp.prevLink = input.prevBtnLink
             temp.nextLink = input.nextBtnLink
           }
-          if(store != 'konga'){
+          if(input.ratings){
             input.ratings.map((element, ind, array) => {
               temp.rating = array[index]
           })
@@ -79,17 +94,17 @@ function ProductsPage() {
         <div >
             <Nav getUserMood={getUserMood} />
             <div className={`pb-4 container-general ${userMood?'productsContainer-light':'productsContainer-dark'}`}>
-            <Jumia jumiaData={jumia}/>
+            <Jumia formatSearchText={formatSearchText} jumiaData={jumia} classifyData={classifyData}/>
            <hr/>
            {/* /// Amazon */}
-          <Amazon classifyData={classifyData} formatPrice={formatPrice}/>
+          <Amazon classifyData={classifyData} formatSearchText={formatSearchText} formatPrice={formatPrice}/>
            <hr/>
            {/* Konga */}
-            <Konga />
+            <Konga classifyData={classifyData} formatSearchText={formatSearchText}/>
            <hr/>
-            <AliExpress formatPrice={formatPrice}/>
+            <AliExpress formatPrice={formatPrice} formatSearchText={formatSearchText}/>
            <hr/>
-            <Jiji jijiData={jiji} classifyData={classifyData}/>
+            <Jiji jijiData={jiji} formatSearchText={formatSearchText} classifyData={classifyData}/>
            </div>
         </div>
     );

@@ -1,26 +1,70 @@
+import axios from 'axios'
 import { useEffect, useState } from 'react'
+import Loader from './loader'
 
 function Jumia(props) {
     let [page, setPage] = useState(1)
+    let [rando, setRando] = useState(0)
     const [data, setData] = useState([])
+    let [loading, setLoadingState] = useState(false)
+    let [searchQuery, setSearchQuery] = useState('')
     useEffect(() => {
-        // let format = props.classifyData(props.jumiaData)
-       // setData(format)
-    }, [props.jumiaData])
+        let rawData = JSON.parse(localStorage.getItem('jumia'))
+        let all = props.classifyData(rawData.data)
+        setData(all)
+    }, [])
+    useEffect(() => {
+        let rawData = JSON.parse(localStorage.getItem('jumia'))
+        let all = props.classifyData(rawData.data)
+        setData(all)
+    }, [rando])
+    let formatRating = (text) => {
+        if(text){
+            let one = text.slice(0,-1)
+            return `${Math.round(one)}%`
+        } else {
+            return null
+        }
+    }
 
-    // let formatRating = (val) => {
+    let fetchData = (query) => {
+        // setLoadingState(true)
+        localStorage.removeItem('jumia')
+        axios.get(`https://fathomless-plains-52664.herokuapp.com/jumia/${query}/${page}`).then(res => {
+        
+            localStorage.setItem('jumia', JSON.stringify(res))
+        }).catch(error => {
+            console.error(error)
+        }).finally(() => {
+            console.log('done')
+            setLoadingState(true)
+            setRando(state => state + 1)
+            setLoadingState(false)
+        })
+    }
 
-    // }
+    let handleSubmit = (e) => {
+        e.preventDefault()
+        if(searchQuery !== ''){
+            let editedQuery = props.formatSearchText(searchQuery)  
+            fetchData(editedQuery)
+             // then setLoadingState(false)
+          } 
+          setSearchQuery('') 
+    }
 
     return (
       <div>
+          {/* <Loader/> */}
                  <section className="resultsSection container mb-4" id="Jumia">
             <div className='top'>
                 <img src="./jumia-logo-full.png" className='darken' style={{maxWidth:'400px'}}  alt="Jumia Logo"/>
                 <div className="controls row mx-auto my-2 justify-content-between">
                     <div className='col-sm-5 row'>
-                        <input type="text" className='col form-control' placeholder="Search In Jumia..." />
-                        <button type="submit" className='col-sm-3 btn btn-outline-secondary'>Search</button>
+                       
+                        <input type="text" className='col form-control' placeholder="Search In Jumia..."   value={searchQuery}
+           onChange={e => setSearchQuery(e.target.value)}/>
+                        <button type="submit" onClick={handleSubmit} className='col-sm-3 btn btn-outline-secondary'>Search</button>
                     </div>
                     <div className="col-sm-4 row justify-content-end">
                         <select className="col-sm-7">
@@ -42,7 +86,7 @@ function Jumia(props) {
                         <h5 className="card-title">{el.name}</h5>
                         <p className="card-text">{el.price}</p>
                         <p className="card-text rating">Rating: 
-                        <span>{el.rating}</span></p>
+                        <span>{formatRating(el.rating)}</span></p>
                         <a href={`https://www.jumia.com.ng${el.link}`} target="_blank" className="btn btn-primary col-sm-12">View Product</a>
                     </div>
                     </div>

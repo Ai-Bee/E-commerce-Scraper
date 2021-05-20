@@ -1,24 +1,39 @@
 import './stylesheets/landing.scss'
 import Nav from './componentParts/topNav'
 import Loader from './componentParts/loader'
-import {useState} from 'react'
+import {useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+// import { useSelector, useDispatch } from 'react-redux';
+// import {jijiAction, amazonAction, aliexpressAction, kongaAction, jumiaAction} from './actions/allActions'
 import axios from 'axios'
 
 function Landing() {
   const history = useHistory()
-  let [userMood, setUserMood] = useState(true)
+  // let jijiData = useSelector(state => state.jijiReducer);
+  // let amazonData = useSelector(state => state.amazonReducer)
+  // let kongaData = useSelector(state => state.kongaReducer)
+  // let jumiaData = useSelector(state => state.jumiaReducer)
+  // let aliexpressData = useSelector(state => state.aliexpressReducer)
+  // // let amazonData = useSelector(state => state.amazonAction)
+  // const dispatch = useDispatch();
+  let [userMood, setUserMood] = useState(true) // use redux globals
   let [searchQuery, setSearchQuery] = useState('')
   let [loading, setLoadingState] = useState(false)
-  let [jiji, setJiji] = useState([])
-  let [amazon, setAmazon] = useState([])
-  let [jumia, setJumia] = useState([])
-  let [aliexpress, setAliexpress] = useState([])
-  let [konga, setKonga] = useState([])
+  // let [jiji, setJiji] = useState([])
+  // let [amazon, setAmazon] = useState([])
+  // let [jumia, setJumia] = useState([])
+  // let [aliexpress, setAliexpress] = useState([])
+  // let [konga, setKonga] = useState([])
 
   const [rootUrl] = useState('https://fathomless-plains-52664.herokuapp.com/')
 
-
+  useEffect(() => {
+  //  dispatch(amazonAction(JSON.parse(localStorage.getItem('amazon'))))
+  //   dispatch(jijiAction(JSON.parse(localStorage.getItem('jiji'))))
+  //   dispatch(aliexpressAction(JSON.parse(localStorage.getItem('aliexpress'))))
+  //   dispatch(kongaAction(JSON.parse(localStorage.getItem('konga'))))
+  //   dispatch(jumiaAction(JSON.parse(localStorage.getItem('jumia'))))
+  }, [])
   const formatSearchText = (text) => {
     /**
      * This method converts multiword search
@@ -42,10 +57,10 @@ function Landing() {
     return axios.get(`${rootUrl}jiji/${query}`)
   }
   let amazonGetter = (query) => {
-    return axios.get(`${rootUrl}amazon/${query}`)
+    return axios.get(`${rootUrl}amazon/${query}/1`)
   }
   let jumiaGetter = (query) => {
-    return axios.get(`${rootUrl}jumia/${query}`)
+    return axios.get(`${rootUrl}jumia/${query}/1`)
   }
   let kongaGetter = (query) => {
     return axios.get(`${rootUrl}konga/${query}/1`)
@@ -62,11 +77,17 @@ function Landing() {
       kongaGetter(query), 
       aliexpressGetter(query)
     ]).then(res => {
-      setJiji(res[0])
-      setAmazon(res[1])
-      setJumia(res[2])
-      setKonga(res[3])
-      setAliexpress(res[4])
+      // dispatch(jijiAction(res[0]))
+      // dispatch(amazonAction(res[1]))
+      // dispatch(jumiaAction(res[2]))
+      // dispatch(kongaAction(res[3]))
+      // dispatch(aliexpressAction(res[4]))
+      localStorage.removeItem('amazon') 
+      localStorage.removeItem('jumia') 
+      localStorage.removeItem('konga')  
+      localStorage.removeItem('jiji')
+      localStorage.removeItem('aliexpress')
+      ///////////
       localStorage.setItem('amazon', JSON.stringify(res[1])) 
       localStorage.setItem('jumia', JSON.stringify(res[2])) 
       localStorage.setItem('konga', JSON.stringify(res[3]))  
@@ -76,6 +97,7 @@ function Landing() {
       console.log(err)
     }).finally(() => {
       setLoadingState(false)
+      history.push('/products')
     })
   }
  
@@ -84,8 +106,6 @@ function Landing() {
     if(searchQuery !== ''){
       let editedQuery = formatSearchText(searchQuery)  
       fetchData(editedQuery)
-      //   history.push('/products')
-
        // make API call
        // when it returns, 
        // navigate to the new route

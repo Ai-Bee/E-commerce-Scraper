@@ -43,8 +43,9 @@
 }
 
 #mainLanding{
+   
     div{
-        top:40vh;
+        margin-top:10vh;
         left: 42vw;
         z-index: 2000;
         display: grid;
@@ -52,7 +53,7 @@
         text-align: center;
         flex-direction: column;
         h1{
-            font-size:70px;
+            font-size: 3rem;;
             letter-spacing: 2pt;
             >span:nth-of-type(1){
                 color:rosybrown;
@@ -80,13 +81,16 @@
             background-origin:padding-box;
             width: 500px;
             height: 50px;
-            font-family: inherit;
-            font-size: 20px;
-            padding-left: 30px;
+           
             border: 1px solid #686969;
             outline: none;
             border-radius: 40px;
         }
+        input::placeholder{
+            font-size: 20px;
+           padding-left: 30px;
+        }
+
         input:active, input:hover, input:focus{         
              box-shadow: 2px 2px 4px #00000075
          }
@@ -120,3 +124,38 @@
          }
     }
 }
+
+@media screen and (max-width: 450px) {
+    #mainLanding{   
+        div{
+            input{
+                max-width: 90vw;
+                height: 40px;
+            }
+            input::placeholder{
+                font-size: 15px;
+               padding-left: 10px;
+            }
+            .siteNames{
+                justify-content: space-around;
+                >img:nth-child(1){
+                    max-width: 35px;
+                }
+                >img:nth-child(2){
+                   max-width: 35px;
+               }
+               >img:nth-child(4){
+                   height: 35px;
+                   width: 60px;
+               }
+               >img:nth-child(5){
+                   max-width: 35px;
+               }
+               >img:nth-child(3){
+                   max-width: 70px;
+               }
+            }
+        }
+    }
+  }
+  

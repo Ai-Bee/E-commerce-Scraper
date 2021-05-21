@@ -8,6 +8,8 @@ function Jumia(props) {
     const [data, setData] = useState([])
     let [loading, setLoadingState] = useState(false)
     let [searchQuery, setSearchQuery] = useState('')
+    let [sorter, setSorter] = useState('popularity')
+
     useEffect(() => {
         let rawData = JSON.parse(localStorage.getItem('jumia'))
         let all = props.classifyData(rawData.data)
@@ -26,11 +28,20 @@ function Jumia(props) {
             return null
         }
     }
+    let gotoNextPage = () => {
+        setPage(state => state + 1)
+        fetchData()
+    }
 
+    let gotoPrevPage = () => {
+        setPage(state => state - 1)
+        fetchData()
+    }
     let fetchData = (query) => {
         // setLoadingState(true)
+        setPage(1)
         localStorage.removeItem('jumia')
-        axios.get(`https://fathomless-plains-52664.herokuapp.com/jumia/${query}/${page}`).then(res => {
+        axios.get(`https://fathomless-plains-52664.herokuapp.com/jumia/${query}/${page}&sort=${sorter}`).then(res => {
         
             localStorage.setItem('jumia', JSON.stringify(res))
         }).catch(error => {
@@ -55,20 +66,22 @@ function Jumia(props) {
 
     return (
       <div>
-          {/* <Loader/> */}
+         <div className={`${loading?'showing':'hiding'}`}>
+          <Loader />
+         </div>
                  <section className="resultsSection container mb-4" id="Jumia">
             <div className='top'>
                 <img src="./jumia-logo-full.png" className='darken' style={{maxWidth:'400px'}}  alt="Jumia Logo"/>
                 <div className="controls row mx-auto my-2 justify-content-between">
-                    <div className='col-sm-5 row'>
+                    <div className='col-sm-6 row'>
                        
                         <input type="text" className='col form-control' placeholder="Search In Jumia..."   value={searchQuery}
            onChange={e => setSearchQuery(e.target.value)}/>
-                        <button type="submit" onClick={handleSubmit} className='col-sm-3 btn btn-outline-secondary'>Search</button>
+                        <button type="submit" onClick={handleSubmit} className='col-sm-4 btn btn-outline-secondary'>Search</button>
                     </div>
-                    <div className="col-sm-4 row justify-content-end">
-                        <select className="col-sm-7">
-                            <option className="mt-3" value="">Popularity</option>
+                    <div className="col-sm-5 row justify-content-end">
+                        <select className="col-sm-7" value={sorter} onChange={e => setSorter(e.target.value)}>
+                            <option className="mt-3" value="popularity">Popularity</option>
                             <option value="highest-price">Price: High to low</option>
                             <option value="lowest-price">Price: Low to High</option>
                             <option value="newest">Newest Arrivals</option>
@@ -96,12 +109,12 @@ function Jumia(props) {
            
             </div>
             <div className='sectionNavigation row mt-3 justify-content-center'>
-                <button className='btn btn-outline-primary row col-md-2 p-0 py-2' disabled={page == 1?true:false}>
+                <button onClick={gotoPrevPage} className='btn btn-outline-primary row col-md-2 p-0 py-2' disabled={page == 1?true:false}>
                     <span className="col" ><img src='./right-arrow.png' style={{transform:'rotate(180deg)', maxWidth:'20px'}}/></span>
                     <span className='col'>Previous Page</span>
                 </button>
                 <button className='col-sm-1 btn btn-outline-primary mx-4 disabled'>{page}</button>
-                <button className='btn btn-outline-primary row col-md-2 p-0 ml-2 py-2'>
+                <button onClick={gotoNextPage} className='btn btn-outline-primary row col-md-2 p-0 ml-2 py-2'>
                     <span className="col" ><img src='./right-arrow.png' style={{maxWidth:'20px'}}/></span>
                     <span className='col'>Next Page</span>
                 </button>

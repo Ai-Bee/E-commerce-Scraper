@@ -21,15 +21,24 @@ function Amazon(props) {
     let handleSubmit = (e) => {
         e.preventDefault()
         if(searchQuery !== ''){
+            setPage(1)
             let editedQuery = props.formatSearchText(searchQuery)  
             fetchData(editedQuery)
-             // then setLoadingState(false)
           } 
           setSearchQuery('') 
     }
+    let gotoNextPage = () => {
+        setPage(state => state + 1)
+        fetchData()
+    }
+
+    let gotoPrevPage = () => {
+        setPage(state => state - 1)
+        fetchData()
+    }
 
     let fetchData = (query) => {
-        // setLoadingState(true)
+        setLoadingState(true)
         localStorage.removeItem('amazon')
         axios.get(`https://fathomless-plains-52664.herokuapp.com/amazon/${query}/${page}`).then(res => {
         
@@ -38,7 +47,6 @@ function Amazon(props) {
             console.error(error)
         }).finally(() => {
             console.log('done')
-            setLoadingState(true)
             setRando(state => state + 1)
             setLoadingState(false)
         })
@@ -46,18 +54,21 @@ function Amazon(props) {
 
     return (
       <div>
-          {/* <Loader/> */}
+          <div className={`${loading?'showing':'hiding'}`}>
+            <Loader /> 
+          </div>
            <section className="resultsSection container mt-4" id="Amazon">
             <div className='top'>
                 <img src="./Amazon-logo-full.png" className='darken' alt='Amazon Logo' style={{maxWidth:'400px'}} />
                 <div className="controls row mx-auto my-2 justify-content-between">
-                    <div className='col-sm-5 row'>
+                    <div className='col-sm-6 row'>
                         <input type="text" value={searchQuery}
            onChange={e => setSearchQuery(e.target.value)} className='col form-control' placeholder="Search In Amazon..." />
-                        <button type="submit" className='col-sm-3 btn btn-outline-warning' onClick={handleSubmit}>Search</button>
+                        <button type="submit" className='col-sm-4 btn btn-outline-warning' onClick={handleSubmit}>Search</button>
                     </div>
                 </div>
             </div>
+            <div>
             <div className="results row">
             {
                 data.map(el => {
@@ -76,13 +87,14 @@ function Amazon(props) {
                 })
             }
             </div>
+            </div>
             <div className='sectionNavigation row mt-3 justify-content-center'>
-                <button disabled={page == 1?true:false} className='btn btn-outline-primary row col-md-2 p-0 py-2'>
+                <button onClick={gotoPrevPage} disabled={page == 1?true:false} className='btn btn-outline-primary row col-md-2 p-0 py-2'>
                     <span className="col" ><img src='./right-arrow.png' style={{transform:'rotate(180deg)', maxWidth:'20px'}}/></span>
                     <span className='col'>Previous Page</span>
                 </button>
                 <button className='col-sm-1 btn btn-outline-primary mx-4 disabled'>{page}</button>
-                <button className='btn btn-outline-primary row col-md-2 p-0 ml-2 py-2'>
+                <button onClick={gotoNextPage} className='btn btn-outline-primary row col-md-2 p-0 ml-2 py-2'>
                     <span className="col" ><img src='./right-arrow.png' style={{maxWidth:'20px'}}/></span>
                     <span className='col'>Next Page</span>
                 </button>

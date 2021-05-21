@@ -47,7 +47,6 @@ function ProductsPage() {
 
     let classifyData = (input, store) => {
       let final = []
-      console.log(input)
       let len = input.items.length
       for (let index = 0; index < len; index++) {
         let temp = {}

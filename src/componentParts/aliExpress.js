@@ -22,6 +22,7 @@ function AliExpress(props) {
     let handleSubmit = (e) => {
         e.preventDefault()
         if(searchQuery !== ''){
+            setPage(1)
             let editedQuery = props.formatSearchText(searchQuery)  
             fetchData(editedQuery)
              // then setLoadingState(false)
@@ -45,16 +46,29 @@ function AliExpress(props) {
         })
     }
 
+    let gotoNextPage = () => {
+        setPage(state => state + 1)
+        fetchData()
+    }
+
+    let gotoPrevPage = () => {
+        setPage(state => state - 1)
+        fetchData()
+    }
+
     return (
       <div>
+           <div className={`${loading?'showing':'hiding'}`}>
+            <Loader /> 
+          </div>
                     <section className="resultsSection container mb-4" id="Aliexpress">
             <div className='top'>
                 <img src="./Aliexpress-logo-full.png"  style={{maxWidth:'400px', maxHeight:'150px'}}  alt="Aliexpress Logo"/>
                 <div className="controls row mx-auto my-2 justify-content-between">
-                    <div className='col-sm-5 row'>
+                    <div className='col-sm-6 row'>
                         <input type="text" value={searchQuery}
            onChange={e => setSearchQuery(e.target.value)}  className='col form-control' placeholder="Search In Aliexpress..." />
-                        <button type="submit" onClick={handleSubmit} className='col-sm-3 btn btn-outline-danger'>Search</button>
+                        <button type="submit" onClick={handleSubmit} className='col-sm-4 btn btn-outline-danger'>Search</button>
                     </div>
                 </div>
             </div>
@@ -76,12 +90,12 @@ function AliExpress(props) {
            
             </div>
             <div className='sectionNavigation row mt-3 justify-content-center'>
-                <button disabled={page == 1?true:false} className='btn btn-outline-primary row col-md-2 p-0 py-2'>
+                <button onClick={gotoPrevPage} disabled={page == 1?true:false} className='btn btn-outline-primary row col-md-2 p-0 py-2'>
                     <span className="col" ><img src='./right-arrow.png' style={{transform:'rotate(180deg)', maxWidth:'20px'}}/></span>
                     <span className='col'>Previous Page</span>
                 </button>
                 <button className='col-sm-1 btn btn-outline-primary mx-4 disabled'>{page}</button>
-                <button className='btn btn-outline-primary row col-md-2 p-0 ml-2 py-2'>
+                <button className='btn btn-outline-primary row col-md-2 p-0 ml-2 py-2' onClick={gotoNextPage}>
                     <span className="col" ><img src='./right-arrow.png' style={{maxWidth:'20px'}}/></span>
                     <span className='col'>Next Page</span>
                 </button>

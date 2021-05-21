@@ -6,20 +6,22 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Redirect
 } from "react-router-dom";
 
 function App() {
   return (
     <div >
       <Router>
+      <Route exact path="/">
+        <Redirect to="/home" />
+      </Route>
       <Route path="/home">
         <Landing />
       </Route>
       <Route path="/products">
         <ProductsPage/> 
       </Route> 
-        <small className='credit'>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></small>
       </Router>
     </div>
   );

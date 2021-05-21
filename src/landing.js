@@ -54,16 +54,16 @@ function Landing() {
     setSearchQuery('') 
   }
   let jijiGetter = (query) => {
-    return axios.get(`${rootUrl}jiji/${query}`)
+    return axios.get(`${rootUrl}jiji/${query}&sort=popularity`)
   }
   let amazonGetter = (query) => {
     return axios.get(`${rootUrl}amazon/${query}/1`)
   }
   let jumiaGetter = (query) => {
-    return axios.get(`${rootUrl}jumia/${query}/1`)
+    return axios.get(`${rootUrl}jumia/${query}/1&sort=popularity`)
   }
   let kongaGetter = (query) => {
-    return axios.get(`${rootUrl}konga/${query}/1`)
+    return axios.get(`${rootUrl}konga/${query}/1&sort=relevance`)
   }
   let aliexpressGetter = (query) => {
     return axios.get(`${rootUrl}aliexpress/${query}/1`)

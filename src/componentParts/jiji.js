@@ -7,6 +7,7 @@ function Jiji(props) {
     let [rando, setRando] = useState(0)
     let [loading, setLoadingState] = useState(false)
     let [searchQuery, setSearchQuery] = useState('')
+    let [sorter, setSorter] = useState('popularity')
 
     let extractLink = (element) => {
         let urlRegex = /(https?:\/\/[^ ]*)/;
@@ -43,7 +44,7 @@ function Jiji(props) {
     let fetchData = (query) => {
         // setLoadingState(true)
         localStorage.removeItem('jiji')
-        axios.get(`https://fathomless-plains-52664.herokuapp.com/jiji/${query}`).then(res => {
+        axios.get(`https://fathomless-plains-52664.herokuapp.com/jiji/${query}&sort=${sorter}`).then(res => {
         
             localStorage.setItem('jiji', JSON.stringify(res))
         }).catch(error => {
@@ -58,18 +59,21 @@ function Jiji(props) {
 
     return (
       <div>
+           <div className={`${loading?'showing':'hiding'}`}>
+            <Loader /> 
+          </div>
             <section className="resultsSection container mb-4 pb-4" id="Jiji">
             <div className='top'>
                 <img src="./Jiji_logo.png" alt="Jiji Logo"/>
                 <div className="controls row mx-auto my-2 justify-content-between">
-                    <div className='col-sm-5 row'>
+                    <div className='col-sm-6 row'>
                         <input type="text" className='col form-control' placeholder="Search In jiji..." value={searchQuery}
            onChange={e => setSearchQuery(e.target.value)} />
-                        <button  onClick={handleSubmit} type="submit" className='col-sm-3 btn btn-outline-success'>Search</button>
+                        <button  onClick={handleSubmit} type="submit" className='col-sm-4 btn btn-outline-success'>Search</button>
                     </div>
-                    <div className="col-sm-4 row justify-content-end">
-                        <select className="col-sm-7">
-                            <option className="mt-3" value="">Popularity</option>
+                    <div className="col-sm-5 row justify-content-end">
+                        <select className="col-sm-7" value={sorter} onChange={e => setSorter(e.target.value)}>
+                            <option className="mt-3" value="popularity">Popularity</option>
                             <option value="highest-price">Price: High to low</option>
                             <option value="lowest-price">Price: Low to High</option>
                             <option value="newest">Newest Arrivals</option>

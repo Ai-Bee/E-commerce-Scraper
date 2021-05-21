@@ -2,7 +2,7 @@ import React from 'react';
 import '../stylesheets/navbar.scss'
 import {useState} from 'react'
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 
 function Nav(props) {
     let location = useLocation()
@@ -33,16 +33,33 @@ function Nav(props) {
     return (
         <div className={`App-header sticky-top ${lightModeOn? 'light': 'dark'}`}>
             <header>
+            <nav role="navigation" id='mobile-nav'>
+            <div id="menuToggle">
+              <input type="checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
+            <ul id="menu">
+            <li className={`logos`} onClick={scroller}> <img src="./Jiji_logo.png" alt="Jiji Logo"/></li>
+            <li className={`logos`} onClick={scroller}> <img src="./Aliexpress-logo-full.png" alt="Aliexpress Logo"/></li>
+            <li className={`logos`} onClick={scroller}> <img src="./Amazon-logo-full.png" alt="Amazon Logo"/></li>
+            <li className={`logos`} onClick={scroller}> <img src="./jumia-logo-full.png" alt="Jumia Logo"/></li>
+            <li className={`logos`} onClick={scroller}> <img src="./kongaLogo.webp" alt="Konga Logo"/></li>
+            </ul>
+           </div>
+          </nav>
+                <Link to={'home'}>
                 <p className='pt-3'>
                 Product Hunt
                 </p>
+                </Link>
                 <nav role="navigation" className="rightImgs pt-3">
                     <ul>
-                        <li className={`logos px-3 ${location.pathname=='/home'?'hiding':'showing'}`} onClick={scroller}> <img src="./Jiji_logo.png" alt="Jiji Logo"/></li>
-                        <li onClick={scroller} className={`logos px-3 ${location.pathname=='/home'?'hiding':'showing'}`}> <img src="./Aliexpress-logo-full.png" alt="Aliexpress Logo"/></li>
-                        <li onClick={scroller} className={`logos px-3 ${location.pathname=='/home'?'hiding':'showing'}`}> <img src="./Amazon-logo-full.png" alt="Amazon Logo"/></li>
-                        <li onClick={scroller} className={`logos px-3 ${location.pathname=='/home'?'hiding':'showing'}`}> <img src="./kongaLogo.webp" alt="Konga Logo"/></li>
-                        <li onClick={scroller} className={`logos mx-3 ${location.pathname=='/home'?'hiding':'showing'}`}> <img src="./jumia-logo-full.png" alt="Jumia Logo"/></li>
+                        <li className={`logos store-icons px-3 ${location.pathname=='/home'?'hiding':'showing'}`} onClick={scroller}> <img src="./Jiji_logo.png" alt="Jiji Logo"/></li>
+                        <li onClick={scroller} className={`logos store-icons px-3 ${location.pathname=='/home'?'hiding':'showing'}`}> <img src="./Aliexpress-logo-full.png" alt="Aliexpress Logo"/></li>
+                        <li onClick={scroller} className={`logos store-icons px-3 ${location.pathname=='/home'?'hiding':'showing'}`}> <img src="./Amazon-logo-full.png" alt="Amazon Logo"/></li>
+                        <li onClick={scroller} className={`logos store-icons px-3 ${location.pathname=='/home'?'hiding':'showing'}`}> <img src="./kongaLogo.webp" alt="Konga Logo"/></li>
+                        <li onClick={scroller} className={`logos store-icons mx-3 ${location.pathname=='/home'?'hiding':'showing'}`}> <img src="./jumia-logo-full.png" alt="Jumia Logo"/></li>
                         <li> 
                             <img 
                             onClick={handleMoodSwitch}

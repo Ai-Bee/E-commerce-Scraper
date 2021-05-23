@@ -31,7 +31,7 @@ function AliExpress(props) {
     }
 
     let fetchData = (query) => {
-        // setLoadingState(true)
+         setLoadingState(true)
         localStorage.removeItem('aliexpress')
         axios.get(`https://fathomless-plains-52664.herokuapp.com/aliexpress/${query}/${page}`).then(res => {
         
@@ -39,8 +39,6 @@ function AliExpress(props) {
         }).catch(error => {
             console.error(error)
         }).finally(() => {
-            console.log('done')
-            setLoadingState(true)
             setRando(state => state + 1)
             setLoadingState(false)
         })

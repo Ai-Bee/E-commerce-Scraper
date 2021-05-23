@@ -42,7 +42,7 @@ function Konga(props) {
         // setLoadingState(true)
         setPage(1)
         localStorage.removeItem('konga')
-        axios.get(`https://fathomless-plains-52664.herokuapp.com/konga/${query}/${page}&sort=${sorter}`).then(res => {
+        axios.get(`https://fathomless-plains-52664.herokuapp.com/konga/${query}/${page}/${sorter}`).then(res => {
         
             localStorage.setItem('konga', JSON.stringify(res))
         }).catch(error => {

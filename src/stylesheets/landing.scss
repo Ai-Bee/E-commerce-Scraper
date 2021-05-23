@@ -81,16 +81,18 @@
             background-origin:padding-box;
             width: 500px;
             height: 50px;
-           
+            padding-left: 30px;
             border: 1px solid #686969;
             outline: none;
             border-radius: 40px;
         }
         input::placeholder{
             font-size: 20px;
-           padding-left: 30px;
+         
         }
-
+        input::content{
+            padding-left: 30px;
+        }
         input:active, input:hover, input:focus{         
              box-shadow: 2px 2px 4px #00000075
          }

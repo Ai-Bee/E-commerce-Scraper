@@ -42,16 +42,14 @@ function Jiji(props) {
     }
 
     let fetchData = (query) => {
-        // setLoadingState(true)
+        setLoadingState(true)
         localStorage.removeItem('jiji')
-        axios.get(`https://fathomless-plains-52664.herokuapp.com/jiji/${query}&sort=${sorter}`).then(res => {
+        axios.get(`https://fathomless-plains-52664.herokuapp.com/jiji/${query}/${sorter}`).then(res => {
         
             localStorage.setItem('jiji', JSON.stringify(res))
         }).catch(error => {
             console.error(error)
         }).finally(() => {
-            console.log('done')
-            setLoadingState(true)
             setRando(state => state + 1)
             setLoadingState(false)
         })

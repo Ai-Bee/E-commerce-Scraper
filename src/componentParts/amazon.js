@@ -46,7 +46,6 @@ function Amazon(props) {
         }).catch(error => {
             console.error(error)
         }).finally(() => {
-            console.log('done')
             setRando(state => state + 1)
             setLoadingState(false)
         })

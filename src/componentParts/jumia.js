@@ -38,17 +38,16 @@ function Jumia(props) {
         fetchData()
     }
     let fetchData = (query) => {
-        // setLoadingState(true)
+        setLoadingState(true)
         setPage(1)
         localStorage.removeItem('jumia')
-        axios.get(`https://fathomless-plains-52664.herokuapp.com/jumia/${query}/${page}&sort=${sorter}`).then(res => {
+        axios.get(`https://fathomless-plains-52664.herokuapp.com/jumia/${query}/${page}/${sorter}`).then(res => {
         
             localStorage.setItem('jumia', JSON.stringify(res))
         }).catch(error => {
             console.error(error)
         }).finally(() => {
             console.log('done')
-            setLoadingState(true)
             setRando(state => state + 1)
             setLoadingState(false)
         })

@@ -54,16 +54,16 @@ function Landing() {
     setSearchQuery('') 
   }
   let jijiGetter = (query) => {
-    return axios.get(`${rootUrl}jiji/${query}&sort=popularity`)
+    return axios.get(`${rootUrl}jiji/${query}/popularity`)
   }
   let amazonGetter = (query) => {
     return axios.get(`${rootUrl}amazon/${query}/1`)
   }
   let jumiaGetter = (query) => {
-    return axios.get(`${rootUrl}jumia/${query}/1&sort=popularity`)
+    return axios.get(`${rootUrl}jumia/${query}/1/popularity`)
   }
   let kongaGetter = (query) => {
-    return axios.get(`${rootUrl}konga/${query}/1&sort=relevance`)
+    return axios.get(`${rootUrl}konga/${query}/1/relevance`)
   }
   let aliexpressGetter = (query) => {
     return axios.get(`${rootUrl}aliexpress/${query}/1`)
@@ -88,6 +88,7 @@ function Landing() {
       localStorage.removeItem('jiji')
       localStorage.removeItem('aliexpress')
       ///////////
+      console.log(res)
       localStorage.setItem('amazon', JSON.stringify(res[1])) 
       localStorage.setItem('jumia', JSON.stringify(res[2])) 
       localStorage.setItem('konga', JSON.stringify(res[3]))  

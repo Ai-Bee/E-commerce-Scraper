@@ -33,8 +33,9 @@ function Nav(props) {
     return (
         <div className={`App-header sticky-top ${lightModeOn? 'light': 'dark'}`}>
             <header>
+            <div className={`${location.pathname=='/home'?'hiding':'showing'}`}>
             <nav role="navigation" id='mobile-nav'>
-            <div id="menuToggle">
+            <div id="menuToggle" >
               <input type="checkbox" />
                 <span></span>
                 <span></span>
@@ -48,6 +49,7 @@ function Nav(props) {
             </ul>
            </div>
           </nav>
+                </div>
                 <Link to={'home'}>
                 <p className='pt-3'>
                 Product Hunt

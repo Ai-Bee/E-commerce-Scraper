@@ -6,6 +6,7 @@ import Jiji from './componentParts/jiji'
 import Amazon from './componentParts/amazon'
 import AliExpress from './componentParts/aliExpress'
 import Jumia from './componentParts/jumia'
+import axios from 'axios'
 
 function ProductsPage() {
     let [userMood, setUserMood] = useState(true)
@@ -14,20 +15,31 @@ function ProductsPage() {
     let [jumia, setJumia] = useState([])
     let [aliexpress, setAliexpress] = useState([])
     let [konga, setKonga] = useState([])
+    let [dollarRate, setRate] = useState(411)
     let getUserMood = (mood) => {
       setUserMood(mood)
     }
-    
+
+    let convertPriceToNGN = () => {
+      axios.get(`https://v6.exchangerate-api.com/v6/47326a890c2e48b62d82fe16/pair/usd/ngn`).then(res => {
+       // console.log(res.data)
+        setRate = res.data.conversion_rate
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+
     let formatPrice = (usd, amazon) => {
       let digits
       let seperate
       if(amazon){
         digits = usd.slice(1)
-        return `₦${Math.round(digits*413)} (${usd})`
+        let val = digits*dollarRate
+        return `₦${val.toFixed(2)} (${usd})`
       } else {
         seperate = usd.split(' ')
         digits = seperate[1].slice(1)
-        return `₦${Math.round(digits*413)} (${seperate[1]})`
+        return `₦${Math.round(digits*`${dollarRate}`)} (${seperate[1]})`
       }
     }
 
@@ -83,6 +95,7 @@ function ProductsPage() {
   }
 
     useEffect(() => {
+      convertPriceToNGN()
       setJiji(JSON.parse(localStorage.getItem('jiji')).data)
       setJumia(JSON.parse(localStorage.getItem('jumia')).data)
       // return () => {
